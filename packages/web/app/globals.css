@@ -1,0 +1,56 @@
+/* Mantemos nossas variáveis de cor na raiz do documento */
+:root {
+  --primary-blue: #0E67F4;
+  --secondary-cyan: #0AABD9;
+  --action-green: #33DB62;
+  --highlight-yellow: #FDF43A;
+  --accent-pink: #F70D74;
+
+  --text-dark: #212529;
+  --text-light: #555;
+  --background-light: #FFFFFF;
+  --background-grey: #f8f9fa; /* Um cinza claro para fundos de seção */
+  --border-color: #dee2e6;
+}
+
+/* Adicionamos uma rolagem suave para todo o site */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--text-light);
+  background: var(--background-light);
+  margin: 0;
+  padding: 0;
+  font-size: 16px; /* Definindo um tamanho de fonte base */
+  line-height: 1.6; /* Melhorando a legibilidade do texto */
+  -webkit-font-smoothing: antialiased; /* Melhora a renderização da fonte em alguns navegadores */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Estilos base para os cabeçalhos */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-dark);
+  font-weight: 700; /* Deixando os títulos mais fortes */
+}
+
+/* Estilo global para links */
+a {
+  color: var(--primary-blue);
+  text-decoration: none; /* Remove o sublinhado padrão */
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  text-decoration: underline; /* Adiciona o sublinhado ao passar o mouse */
+  color: var(--secondary-cyan);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+    padding: 2rem 0;
+}

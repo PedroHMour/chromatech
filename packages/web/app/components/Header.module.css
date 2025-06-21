@@ -1,0 +1,132 @@
+.header {
+  background-color: var(--background-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo span {
+  color: var(--secondary-cyan);
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.navLinks a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding: 5px 0;
+}
+
+/* Efeito de sublinhado no hover */
+.navLinks a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-blue);
+  transition: width 0.3s ease;
+}
+
+.navLinks a:hover::after {
+  width: 100%;
+}
+
+.actionIcons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.actionIcons a {
+  color: var(--text-dark);
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.actionIcons a:hover {
+  color: var(--primary-blue);
+}
+
+/* Estilos para o menu mobile */
+.mobileMenuButton {
+  display: none; /* Escondido por padrão em telas grandes */
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
+.mobileMenu {
+  display: none; /* Escondido por padrão */
+}
+
+/* Media Query para Responsividade */
+@media (max-width: 992px) {
+  /* Em telas menores que 992px, escondemos os links do desktop */
+  .navLinks {
+    display: none;
+  }
+
+  /* E mostramos o botão do menu hambúrguer */
+  .mobileMenuButton {
+    display: block;
+    z-index: 1001; /* Garante que fique acima de outros elementos */
+  }
+
+  /* Mostra o menu dropdown quando ativo */
+  .mobileMenu {
+    display: block;
+    position: absolute;
+    top: 80px; /* Logo abaixo do header */
+    left: 0;
+    width: 100%;
+    background-color: var(--background-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+  }
+
+  .mobileNavLinks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+
+  .mobileNavLinks li {
+    padding: 1rem 0;
+  }
+
+  .mobileNavLinks a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,80 @@
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: 12px; /* Bordas mais arredondadas */
+  text-align: center;
+  background-color: var(--background-light);
+  overflow: hidden; /* Garante que nada "vaze" das bordas arredondadas */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+}
+
+.card:hover {
+  transform: translateY(-8px); /* Efeito de "flutuar" */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
+}
+
+.imageWrapper {
+  position: relative; /* Essencial para o efeito de overlay */
+  background-color: var(--background-grey);
+  padding: 1rem;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .productImage {
+  transform: scale(1.05); /* Efeito de zoom na imagem ao passar o mouse */
+}
+
+.content {
+    padding: 1.5rem;
+    flex-grow: 1; /* Faz esta área crescer para ocupar o espaço */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Espaça os elementos internos */
+}
+
+.title {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  margin: 0 0 0.5rem 0;
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  flex-grow: 1; /* Permite que a descrição cresça se houver espaço */
+}
+
+.price {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: var(--primary-blue);
+    margin-bottom: 1.5rem;
+}
+
+.detailsButton {
+  display: inline-block;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--primary-blue);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  border: 2px solid var(--primary-blue);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.detailsButton:hover {
+  background-color: var(--primary-blue);
+  color: white;
+  text-decoration: none;
+}
