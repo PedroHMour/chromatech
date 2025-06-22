@@ -1,56 +1,67 @@
-/* Mantemos nossas variáveis de cor na raiz do documento */
+/* ==========================================================================
+   1. Definição da Paleta de Cores Estratégica como Variáveis CSS
+   ========================================================================== */
 :root {
-  --primary-blue: #0E67F4;
-  --secondary-cyan: #0AABD9;
-  --action-green: #33DB62;
-  --highlight-yellow: #FDF43A;
-  --accent-pink: #F70D74;
+  /* Cores Principais */
+  --cor-primaria-azul: #0E67F4;
+  --cor-secundaria-verde: #33DB62;
 
-  --text-dark: #212529;
-  --text-light: #555;
-  --background-light: #FFFFFF;
-  --background-grey: #f8f9fa; /* Um cinza claro para fundos de seção */
-  --border-color: #dee2e6;
+  /* Cores de Destaque e Ação */
+  --cor-destaque-amarelo: #FDF43A;
+  --cor-acento-rosa: #F70D74;
+
+  /* Cores Neutras (Essenciais para o equilíbrio) */
+  --cor-neutra-grafite: #1A202C; /* Para textos principais */
+  --cor-neutra-cinza: #555760;   /* Para textos secundários, parágrafos */
+  --cor-neutra-cinza-claro: #A0AEC0;
+  --cor-neutra-borda: #E2E8F0;    /* Para bordas de cards e inputs */
+  --cor-neutra-fundo: #FFFFFF;
+  --cor-neutra-fundo-secao: #F7FAFC; /* Branco Gelo para seções */
 }
 
-/* Adicionamos uma rolagem suave para todo o site */
+/* ==========================================================================
+   2. Estilos Globais de Reset e Base
+   ========================================================================== */
+
+/* Rolagem suave para âncoras */
 html {
   scroll-behavior: smooth;
 }
 
+/* Estilos base para o corpo da página */
 body {
-  color: var(--text-light);
-  background: var(--background-light);
+  background: var(--cor-neutra-fundo);
+  color: var(--cor-neutra-cinza); /* Cor padrão para parágrafos */
   margin: 0;
   padding: 0;
-  font-size: 16px; /* Definindo um tamanho de fonte base */
-  line-height: 1.6; /* Melhorando a legibilidade do texto */
-  -webkit-font-smoothing: antialiased; /* Melhora a renderização da fonte em alguns navegadores */
+  font-size: 16px;
+  line-height: 1.7; /* Altura de linha confortável para leitura */
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Estilos base para os cabeçalhos */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-dark);
-  font-weight: 700; /* Deixando os títulos mais fortes */
+/* Reset de estilos para uma base consistente */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Estilo global para links */
+/* Estilos globais para links */
 a {
-  color: var(--primary-blue);
-  text-decoration: none; /* Remove o sublinhado padrão */
+  color: var(--cor-primaria-azul);
+  text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
 a:hover {
-  text-decoration: underline; /* Adiciona o sublinhado ao passar o mouse */
-  color: var(--secondary-cyan);
+  text-decoration: underline;
+  color: var(--cor-secundaria-verde);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-main {
-    padding: 2rem 0;
+/* Estilos para Títulos */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--cor-neutra-grafite); /* Títulos com cor mais forte */
+  font-weight: 700;
+  line-height: 1.3;
 }

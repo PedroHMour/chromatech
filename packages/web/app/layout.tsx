@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./components/Header";
+import Header from "./components/Header"; 
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Chromatech - Impressoras 3D",
-  description: "Dando vida às suas ideias com tecnologia de ponta.",
+  description: "Dando vida às suas ideias com tecnologia de ponta para a região de Manaus.",
 };
 
 export default function RootLayout({
@@ -18,13 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      {/* 3. Aplicar a classe da fonte ao body. Isso fará com que toda a aplicação herde a fonte. */}
-      <body className={inter.className}>
+      <body className={inter.className}> 
         <Header />
         <main>
           {children}
         </main>
-        {/* Você também pode adicionar um Footer aqui no futuro */}
       </body>
     </html>
   );
