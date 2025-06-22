@@ -13,14 +13,25 @@ interface Produto {
 
 // 2. Tipando o retorno da função que busca os dados
 async function getProducts(): Promise<Produto[]> {
-  // ATENÇÃO: Verifique a porta que seu backend está rodando.
-  const res = await fetch('http://localhost:5257/api/produtos', { cache: 'no-store' });
 
-  if (!res.ok) {
-    throw new Error('Falha ao buscar dados da API');
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
+
+  try {
+    // 2. Usamos a variável 'apiUrl' para construir o endereço final.
+    const res = await fetch(`${apiUrl}/api/produtos`, { cache: 'no-store' });
+
+    if (!res.ok) {
+      // Melhora a mensagem de erro para incluir o status
+      throw new Error(`Falha ao buscar dados da API: Status ${res.status}`);
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Erro detalhado ao buscar produtos:", error);
+    // Retorna um array vazio em caso de erro para não quebrar a página.
+    // O erro será mostrado no console do servidor.
+    return [];
   }
-
-  return res.json();
 }
 
 export default async function HomePage() {
