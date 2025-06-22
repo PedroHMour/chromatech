@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// INÍCIO DA MODIFICAÇÃO PARA O CORS
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: myAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:3000") // Permite o site Next.js
+                          // Em produção, seria ideal ser mais específico, mas para começar está bom.
+                          policy.AllowAnyOrigin()
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
                       });
@@ -27,14 +27,42 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// =======================================================================
+// INÍCIO DO CÓDIGO PARA APLICAR MIGRATIONS AUTOMATICAMENTE
+// Este bloco será executado toda vez que a API iniciar.
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<DataContext>();
+        // O comando .Migrate() aplica todas as migrações pendentes ao banco de dados.
+        // Se o banco não existir, ele será criado.
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Ocorreu um erro durante a execução das migrations.");
+    }
+}
+// FIM DO CÓDIGO PARA APLICAR MIGRATIONS
+// =======================================================================
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Comentamos esta linha para evitar o erro de redirecionamento no Render
+// app.UseHttpsRedirection();
+
 app.UseCors(myAllowSpecificOrigins);
+
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();
