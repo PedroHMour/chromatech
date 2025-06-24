@@ -9,8 +9,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: myAllowSpecificOrigins,
                       policy =>
                       {
-                          // Em produÁ„o, seria ideal ser mais especÌfico, mas para comeÁar est· bom.
-                          policy.AllowAnyOrigin()
+                          // Em produ√ß√£o, seria ideal ser mais espec√≠fico, mas para come√ßar est√° bom.
+                          policy.AllowAnyOrigin() 
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
                       });
@@ -28,25 +28,25 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // =======================================================================
-// INÕCIO DO C”DIGO PARA APLICAR MIGRATIONS AUTOMATICAMENTE
-// Este bloco ser· executado toda vez que a API iniciar.
+// IN√çCIO DO C√ìDIGO PARA APLICAR MIGRATIONS AUTOMATICAMENTE
+// Este bloco ser√° executado toda vez que a API iniciar.
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var context = services.GetRequiredService<DataContext>();
-        // O comando .Migrate() aplica todas as migraÁıes pendentes ao banco de dados.
-        // Se o banco n„o existir, ele ser· criado.
-        context.Database.Migrate();
+        // O comando .Migrate() aplica todas as migra√ß√µes pendentes ao banco de dados.
+        // Se o banco n√£o existir, ele ser√° criado.
+        context.Database.Migrate(); 
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Ocorreu um erro durante a execuÁ„o das migrations.");
+        logger.LogError(ex, "Ocorreu um erro durante a execu√ß√£o das migrations.");
     }
 }
-// FIM DO C”DIGO PARA APLICAR MIGRATIONS
+// FIM DO C√ìDIGO PARA APLICAR MIGRATIONS
 // =======================================================================
 
 
