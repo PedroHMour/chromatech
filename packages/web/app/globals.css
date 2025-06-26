@@ -3,20 +3,23 @@
    ========================================================================== */
 :root {
   /* Cores Principais */
-  --cor-primaria-azul: #0E67F4;
-  --cor-secundaria-verde: #33DB62;
+  --cor-primaria-azul: #0052FF;
+  --cor-secundaria-verde: #00E676;
 
   /* Cores de Destaque e Ação */
-  --cor-destaque-amarelo: #FDF43A;
-  --cor-acento-rosa: #F70D74;
+  --cor-destaque-amarelo: #FFD600;
 
   /* Cores Neutras (Essenciais para o equilíbrio) */
-  --cor-neutra-grafite: #1A202C; /* Para textos principais */
-  --cor-neutra-cinza: #555760;   /* Para textos secundários, parágrafos */
-  --cor-neutra-cinza-claro: #A0AEC0;
-  --cor-neutra-borda: #E2E8F0;    /* Para bordas de cards e inputs */
-  --cor-neutra-fundo: #FFFFFF;
-  --cor-neutra-fundo-secao: #F7FAFC; /* Branco Gelo para seções */
+  --cor-neutra-grafite: #121212; /* Um preto mais suave para fundos escuros */
+  --cor-neutra-cinza: #8E8E93;   /* Para textos secundários, parágrafos */
+  --cor-neutra-cinza-claro: #E5E5EA; /* Para textos e elementos em fundos escuros */
+  --cor-neutra-borda: #3A3A3C;    /* Para bordas em modo escuro */
+  --cor-neutra-fundo: #000000; /* Fundo principal escuro */
+  --cor-neutra-fundo-secao: #1C1C1E; /* Cinza escuro para seções */
+
+  /* Gradientes */
+  --gradiente-hero: linear-gradient(135deg, #0052FF 0%, #00E676 100%);
+  --gradiente-card: linear-gradient(145deg, #1C1C1E, #2C2C2E);
 }
 
 /* ==========================================================================
@@ -30,15 +33,34 @@ html {
 
 /* Estilos base para o corpo da página */
 body {
-  background: var(--cor-neutra-fundo);
-  color: var(--cor-neutra-cinza); /* Cor padrão para parágrafos */
+  background-color: var(--cor-neutra-fundo);
+  background-image: url('/images/background-impressora.jpeg'); /* Sua imagem de fundo aqui */
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--cor-neutra-cinza-claro);
   margin: 0;
   padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
-  line-height: 1.7; /* Altura de linha confortável para leitura */
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Overlay sutil para melhorar a legibilidade do texto sobre a imagem */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(18, 18, 18, 0.85); /* Overlay grafite com 85% de opacidade */
+  z-index: -1;
+}
+
 
 /* Reset de estilos para uma base consistente */
 * {
@@ -55,13 +77,18 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
   color: var(--cor-secundaria-verde);
 }
 
 /* Estilos para Títulos */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--cor-neutra-grafite); /* Títulos com cor mais forte */
+  color: #FFFFFF; /* Títulos brancos para contraste */
   font-weight: 700;
   line-height: 1.3;
+}
+
+main {
+  position: relative;
+  z-index: 1;
 }
