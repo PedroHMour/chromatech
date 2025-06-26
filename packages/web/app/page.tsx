@@ -1,5 +1,6 @@
 import ProductCard from './components/ProductCard';
 import styles from './Home.module.css'; 
+import Link from 'next/link';
 
 interface Produto {
   Id: number;
@@ -11,43 +12,52 @@ interface Produto {
   Especificacoes: string[];
 }
 
-// 2. Tipando o retorno da função que busca os dados
 async function getProducts(): Promise<Produto[]> {
-
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
-
   try {
-    // 2. Usamos a variável 'apiUrl' para construir o endereço final.
     const res = await fetch(`${apiUrl}/api/produtos`, { cache: 'no-store' });
-
     if (!res.ok) {
-      // Melhora a mensagem de erro para incluir o status
       throw new Error(`Falha ao buscar dados da API: Status ${res.status}`);
     }
-
     return res.json();
   } catch (error) {
     console.error("Erro detalhado ao buscar produtos:", error);
-    // Retorna um array vazio em caso de erro para não quebrar a página.
-    // O erro será mostrado no console do servidor.
     return [];
   }
 }
 
 export default async function HomePage() {
-  // 3. O TypeScript agora sabe que a variável 'produtos' é um array de 'Produto'
   const produtos: Produto[] = await getProducts();
 
   return (
     <main className={styles.main}>
+      {/* Hero Section */}
       <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Chromatech: Dando Vida às Suas Ideias</h1>
-        <p className={styles.heroSubtitle}>Impressoras 3D de alta performance para todos os níveis de criatividade.</p>
-        <button className={styles.heroButton}>Conheça Nossas Impressoras</button>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>
+            Precisão que <span className={styles.highlight}>Inspira</span>.
+            <br />
+            Tecnologia que <span className={styles.highlight}>Transforma</span>.
+          </h1>
+          <p className={styles.heroSubtitle}>
+            Explore a vanguarda da impressão 3D com as impressoras Chromatech.
+            <br/>
+            Qualidade industrial e inovação ao seu alcance em Manaus.
+          </p>
+          <div className={styles.heroActions}>
+            <Link href="/produtos" className={`${styles.heroButton} ${styles.primaryButton}`}>
+              Ver Impressoras
+            </Link>
+            <Link href="/sobre-nos" className={`${styles.heroButton} ${styles.secondaryButton}`}>
+              Conheça a Chromatech
+            </Link>
+          </div>
+        </div>
       </section>
 
+      {/* Products Section */}
       <section className={styles.productsSection}>
-        <h2 className={styles.sectionTitle}>Nossos Produtos</h2>
+        <h2 className={styles.sectionTitle}>Nossos Produtos em Destaque</h2>
         <div className={styles.productsGrid}>
           {produtos.map((produto) => (
             <ProductCard key={produto.Id} produto={produto} />
