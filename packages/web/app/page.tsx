@@ -2,14 +2,15 @@ import ProductCard from './components/ProductCard';
 import styles from './Home.module.css'; 
 import Link from 'next/link';
 
+// INTERFACE ATUALIZADA para camelCase
 interface Produto {
-  Id: number;
-  Nome: string;
-  DescricaoCurta: string;
-  Historia: string;
-  Preco: number;
-  UrlImagemPrincipal: string;
-  Especificacoes: string[];
+  id: number;
+  nome: string;
+  descricaoCurta: string;
+  historia: string;
+  preco: number;
+  urlImagemPrincipal: string;
+  especificacoes: string[];
 }
 
 async function getProducts(): Promise<Produto[]> {
@@ -60,7 +61,8 @@ export default async function HomePage() {
         <h2 className={styles.sectionTitle}>Nossos Produtos em Destaque</h2>
         <div className={styles.productsGrid}>
           {produtos.map((produto) => (
-            <ProductCard key={produto.Id} produto={produto} />
+            // USO DA PROPRIEDADE ATUALIZADO (produto.id) para a key prop
+            <ProductCard key={produto.id} produto={produto} />
           ))}
         </div>
       </section>
