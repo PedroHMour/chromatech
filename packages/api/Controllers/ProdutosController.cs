@@ -1,10 +1,10 @@
 ﻿// Importações de pacotes e namespaces necessários para o funcionamento do controller.
-using Microsoft.AspNetCore.Mvc;      
-using Microsoft.EntityFrameworkCore; 
-using Chromatech.Api.Models;         
-using Chromatech.Api.Data;          
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Chromatech.Api.Models;
+using Chromatech.Api.Data;
 using System.Collections.Generic;
-using System.Threading.Tasks;       
+using System.Threading.Tasks;
 
 namespace Chromatech.Api.Controllers
 {
@@ -36,6 +36,32 @@ namespace Chromatech.Api.Controllers
             // Retorna a lista de produtos encontrada com um status HTTP 200 OK.
             return Ok(produtos);
         }
+        
+        // =======================================================================
+        // INÍCIO DO NOVO CÓDIGO
+        // Este método responde a requisições HTTP GET para a rota "/api/produtos/{id}"
+        // Exemplo: /api/produtos/2
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Produto>> GetProduto(int id)
+        {
+            // Usa o método FindAsync do Entity Framework, que é otimizado
+            // para buscar um item pela sua chave primária (o 'Id').
+            var produto = await _context.Produtos.FindAsync(id);
+
+            // Se o produto não for encontrado no banco de dados, retornamos
+            // um resultado HTTP 404 Not Found, que é a prática correta.
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            // Se o produto for encontrado, retorna o objeto do produto com um
+            // status HTTP 200 OK.
+            return Ok(produto);
+        }
+        // FIM DO NOVO CÓDIGO
+        // =======================================================================
+
 
         // Este método responde a requisições HTTP POST para a rota "/api/produtos"
         [HttpPost]
