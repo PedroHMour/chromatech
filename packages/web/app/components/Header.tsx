@@ -1,34 +1,47 @@
-'use client'; // Diretiva necessária para usar hooks como useState
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Header.module.css';
 import { FaShoppingCart, FaUserCircle, FaBars, FaTimes } from 'react-icons/fa';
 
 const Header: React.FC = () => {
-  // Estado para controlar a visibilidade do menu móvel
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
-  // Função para alternar o estado do menu
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+      setIsMenuOpen(false);
+  }
+
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${hasScrolled ? styles.scrolled : ''}`}>
       <nav className={styles.navbar}>
-        <Link href="/" className={styles.logoLink}>
+        <Link href="/" className={styles.logoLink} onClick={closeMenu}>
           <Image
-          src="/images/logo.png" 
-          alt="Logo da Chromatech"
-          width={160} 
-          height={45} 
-          priority
+            src="/images/logo.png"
+            alt="Logo da Chromatech"
+            width={160}
+            height={45}
+            priority
           />
         </Link>
 
-        {/* Links de Navegação para Desktop */}
+        {/* Desktop Navigation */}
         <ul className={styles.navLinks}>
           <li><Link href="/produtos">Impressoras 3D</Link></li>
           <li><Link href="/sobre-nos">Sobre Nós</Link></li>
@@ -36,7 +49,7 @@ const Header: React.FC = () => {
           <li><Link href="/suporte">Suporte</Link></li>
         </ul>
 
-        {/* Ícones de Ação */}
+        {/* Action Icons */}
         <div className={styles.actionIcons}>
           <Link href="/carrinho" aria-label="Carrinho de Compras">
             <FaShoppingCart />
@@ -44,22 +57,21 @@ const Header: React.FC = () => {
           <Link href="/minha-conta" aria-label="Minha Conta">
             <FaUserCircle />
           </Link>
+          {/* Mobile Menu Button */}
+          <button className={styles.mobileMenuButton} onClick={toggleMenu} aria-label="Abrir menu">
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
-
-        {/* Botão do Menu Hambúrguer para Mobile */}
-        <button className={styles.mobileMenuButton} onClick={toggleMenu} aria-label="Abrir menu">
-          {isMenuOpen ? <FaTimes /> : <FaBars />}
-        </button>
       </nav>
 
-      {/* Menu Dropdown para Mobile */}
+      {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className={styles.mobileMenu}>
           <ul className={styles.mobileNavLinks}>
-            <li><Link href="/produtos" onClick={toggleMenu}>Impressoras 3D</Link></li>
-            <li><Link href="/sobre-nos" onClick={toggleMenu}>Sobre Nós</Link></li>
-            <li><Link href="/aplicacoes" onClick={toggleMenu}>Aplicações</Link></li>
-            <li><Link href="/suporte" onClick={toggleMenu}>Suporte</Link></li>
+            <li><Link href="/produtos" onClick={closeMenu}>Impressoras 3D</Link></li>
+            <li><Link href="/sobre-nos" onClick={closeMenu}>Sobre Nós</Link></li>
+            <li><Link href="/aplicacoes" onClick={closeMenu}>Aplicações</Link></li>
+            <li><Link href="/suporte" onClick={closeMenu}>Suporte</Link></li>
           </ul>
         </div>
       )}
