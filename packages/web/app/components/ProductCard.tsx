@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProductCard.module.css';
 import Image from 'next/image';
-import Link from 'next/link'; // Importe o Link do Next.js
+import Link from 'next/link';
 
 interface Produto {
   Id: number;
@@ -18,28 +18,25 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ produto }) => {
   return (
     <div className={styles.card}>
-      <div className={styles.imageWrapper}>
-        <Image 
-          src={produto.UrlImagemPrincipal} 
-          alt={`Impressora 3D ${produto.Nome}`}
-          width={300}
-          height={300}
-          className={styles.productImage}
-        />
-      </div>
-      <div className={styles.content}>
-        <div>
-            <h3 className={styles.title}>{produto.Nome}</h3>
-            <p className={styles.description}>{produto.DescricaoCurta}</p>
+      <Link href={`/produtos/${produto.Id}`} className={styles.cardLink}>
+        <div className={styles.imageWrapper}>
+          <Image
+            src={produto.UrlImagemPrincipal}
+            alt={`Impressora 3D ${produto.Nome}`}
+            width={350}
+            height={350}
+            className={styles.productImage}
+          />
         </div>
-        <div>
-            <div className={styles.price}>R$ {produto.Preco.toFixed(2).replace('.', ',')}</div>
-            {/* Usando o componente Link para navegação otimizada */}
-            <Link href={`/produtos/${produto.Id}`} className={styles.detailsButton}>
-              Ver Detalhes
-            </Link>
+        <div className={styles.content}>
+          <h3 className={styles.title}>{produto.Nome}</h3>
+          <p className={styles.description}>{produto.DescricaoCurta}</p>
+          <div className={styles.footer}>
+            <span className={styles.price}>R$ {produto.Preco.toFixed(2).replace('.', ',')}</span>
+            <span className={styles.detailsButton}>Ver Detalhes</span>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
