@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import styles from './DetalhesProduto.module.css';
 import { FaShoppingCart, FaCheckCircle } from 'react-icons/fa';
 
-// A interface para o nosso objeto de produto permanece a mesma.
 interface Produto {
   id: number;
   nome: string;
@@ -14,29 +13,26 @@ interface Produto {
   especificacoes: string[];
 }
 
-// MODIFICAÇÃO: A interface de props agora é usada em uma constante tipada.
-interface PageProps {
+// Esta é a forma correta e estável de tipar as props de uma página
+// dinâmica no Next.js 14 App Router.
+type Props = {
   params: {
     id: string;
   };
-}
+};
 
-// A função de busca de dados permanece a mesma.
 async function getProduct(id: string): Promise<Produto | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
   try {
     const res = await fetch(`${apiUrl}/api/produtos/${id}`, {
       next: { revalidate: 600 },
     });
-
     if (res.status === 404) {
       return null;
     }
-
     if (!res.ok) {
       throw new Error(`Falha ao buscar dados da API: Status ${res.status}`);
     }
-
     return res.json();
   } catch (error) {
     console.error("Erro detalhado ao buscar produto:", error);
@@ -44,12 +40,8 @@ async function getProduct(id: string): Promise<Produto | null> {
   }
 }
 
-// =======================================================================
-// INÍCIO DA CORREÇÃO PRINCIPAL
-// Declaramos o componente como uma constante que recebe uma função assíncrona.
-// Essa sintaxe é mais explícita para o compilador TypeScript.
-// =======================================================================
-const ProductDetailPage = async ({ params }: PageProps) => {
+// Usamos a tipagem 'Props' e desestruturamos 'params' diretamente.
+export default async function ProductDetailPage({ params }: Props) {
   const produto = await getProduct(params.id);
 
   if (!produto) {
@@ -114,6 +106,4 @@ const ProductDetailPage = async ({ params }: PageProps) => {
       </div>
     </main>
   );
-};
-
-export default ProductDetailPage;
+}
