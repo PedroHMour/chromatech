@@ -1,0 +1,100 @@
+# .github/workflows/backend.yml
+
+name: Backend CI/CD
+
+# MODIFICAÇÃO: O workflow agora é acionado por pushes para 'main' e 'develop',
+# e também por Pull Requests para ambas as branches.
+on:
+  push:
+    branches: [ "main", "develop" ] # Adicionada a branch 'develop'
+    paths:
+      - 'packages/api/**'
+      - '.github/workflows/backend.yml'
+  
+  pull_request:
+    branches: [ "main", "develop" ] # Adicionada a branch 'develop'
+    paths:
+      - 'packages/api/**'
+      - '.github/workflows/backend.yml'
+
+jobs:
+  # MODIFICAÇÃO: Renomeado de 'build' para 'build-and-test' para maior clareza
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./packages/api
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x' # ATENÇÃO: Verifique sua versão do .NET
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --configuration Release --no-restore
+      
+    # NOVO PASSO: Executa os testes do seu projeto. É uma boa prática ter testes unitários.
+    # Se você ainda não tem um projeto de teste, pode remover este passo por enquanto.
+    - name: Run tests
+      run: dotnet test --no-build --verbosity normal
+
+    # MODIFICAÇÃO: Publica os arquivos e faz o upload como artefato.
+    - name: Publish project
+      run: dotnet publish -c Release --no-build --output ./dist
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: dotnet-api
+        path: packages/api/dist
+
+  # MODIFICAÇÃO: O job de deploy foi reestruturado para lidar com múltiplos ambientes.
+  deploy:
+    # O deploy só acontece depois que 'build-and-test' passa
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    
+    # Este job só executa em eventos de PUSH, não em Pull Requests.
+    if: github.event_name == 'push'
+    
+    # Define o ambiente alvo baseado na branch (bom para regras de proteção de branch)
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Staging' }}
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: dotnet-api
+          path: ./published-api
+      
+      # Este passo faz o deploy para o ambiente de STAGING (TESTE)
+      - name: Deploy to Staging Environment
+        if: github.ref == 'refs/heads/develop' # Condição: só executa na branch 'develop'
+        uses: azure/webapps-deploy@v3
+        id: deploy-to-staging
+        with:
+          app-name: 'chromatech-api' # Mude para o nome do seu App Service
+          slot-name: 'staging'      # Nome do slot de deploy para teste
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_STAGING }} # Secret para o ambiente de staging
+          package: './published-api'
+
+      # Este passo faz o deploy para o ambiente de PRODUÇÃO
+      - name: Deploy to Production Environment
+        if: github.ref == 'refs/heads/main' # Condição: só executa na branch 'main'
+        uses: azure/webapps-deploy@v3
+        id: deploy-to-production
+        with:
+          app-name: 'chromatech-api' # Mude para o nome do seu App Service
+          # Não especificamos 'slot-name' para fazer deploy no slot de produção
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_PRODUCTION }} # Secret para o ambiente de produção
+          package: './published-api'
