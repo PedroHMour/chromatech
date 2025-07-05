@@ -1,15 +1,14 @@
 import React from 'react';
-import Image from 'next/image';
+// import Image from 'next/image'; // REMOVIDO - não utilizado
 import styles from './SobreNos.module.css';
-import TeamCard from '../components/TeamCard';
-import { FaBullseye, FaEye, FaHeart } from 'react-icons/fa';
-
+import TeamCard from '@/app/components/TeamCard'; // MODIFICAÇÃO: Caminho corrigido para usar o alias '@'
+import { FaBullseye, FaEye } from 'react-icons/fa'; // MODIFICAÇÃO: 'FaHeart' removido
 
 const teamMembers = [
   {
     name: 'Gisele Lima',
     title: 'CEO',
-    imageUrl: '/images/team/placeholder-female.jpg', // Usaremos imagens placeholder por enquanto
+    imageUrl: '/images/team/placeholder-female.jpg',
   },
   {
     name: 'Bruno',
