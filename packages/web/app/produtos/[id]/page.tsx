@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import styles from './DetalhesProduto.module.css';
 import { FaShoppingCart, FaCheckCircle } from 'react-icons/fa';
+import type { NextPage } from 'next'; // MODIFICAÇÃO: Importa o tipo correto do Next.js
 
 interface Produto {
   id: number;
@@ -13,12 +14,7 @@ interface Produto {
   especificacoes: string[];
 }
 
-// INÍCIO DA MODIFICAÇÃO: Interface mais completa para as props da página
-interface ProductDetailPageProps {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-// FIM DA MODIFICAÇÃO
+// MODIFICAÇÃO: A interface customizada ProductDetailPageProps foi REMOVIDA.
 
 async function getProduct(id: string): Promise<Produto | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
@@ -42,8 +38,8 @@ async function getProduct(id: string): Promise<Produto | null> {
   }
 }
 
-// MODIFICAÇÃO: Usando a nova interface
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
+// MODIFICAÇÃO: A função agora é tipada com NextPage, que infere as props corretamente.
+const ProductDetailPage: NextPage<{ params: { id: string } }> = async ({ params }) => {
   const produto = await getProduct(params.id);
 
   if (!produto) {
@@ -108,4 +104,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       </div>
     </main>
   );
-}
+};
+
+export default ProductDetailPage;
