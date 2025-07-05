@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import styles from './DetalhesProduto.module.css';
 import { FaShoppingCart, FaCheckCircle } from 'react-icons/fa';
 
-// INTERFACE ATUALIZADA para camelCase
 interface Produto {
   id: number;
   nome: string;
@@ -14,11 +13,10 @@ interface Produto {
   especificacoes: string[];
 }
 
-// INÍCIO DA MODIFICAÇÃO: Interface para as props da página
+// INÍCIO DA MODIFICAÇÃO: Interface mais completa para as props da página
 interface ProductDetailPageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 // FIM DA MODIFICAÇÃO
 
@@ -26,7 +24,7 @@ async function getProduct(id: string): Promise<Produto | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
   try {
     const res = await fetch(`${apiUrl}/api/produtos/${id}`, {
-      next: { revalidate: 600 }, 
+      next: { revalidate: 600 },
     });
 
     if (res.status === 404) {
@@ -44,7 +42,7 @@ async function getProduct(id: string): Promise<Produto | null> {
   }
 }
 
-// MODIFICAÇÃO: Usando a nova interface para tipar as props
+// MODIFICAÇÃO: Usando a nova interface
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const produto = await getProduct(params.id);
 
@@ -58,7 +56,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Coluna da Galeria de Imagens */}
         <div className={styles.gallery}>
           <div className={styles.mainImageWrapper}>
-            {/* USO DAS PROPRIEDADES ATUALIZADO */}
             <Image
               src={produto.urlImagemPrincipal}
               alt={`Imagem principal de ${produto.nome}`}
