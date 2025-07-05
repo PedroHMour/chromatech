@@ -14,7 +14,7 @@ interface Produto {
   especificacoes: string[];
 }
 
-// MODIFICAÇÃO: Definimos a interface para o objeto de props completo.
+// MODIFICAÇÃO: A interface de props agora é usada em uma constante tipada.
 interface PageProps {
   params: {
     id: string;
@@ -44,10 +44,13 @@ async function getProduct(id: string): Promise<Produto | null> {
   }
 }
 
-// MODIFICAÇÃO: A função agora recebe 'props' como um objeto inteiro e o tipo é 'PageProps'.
-export default async function ProductDetailPage(props: PageProps) {
-  // Acessamos 'params.id' a partir do objeto 'props'.
-  const produto = await getProduct(props.params.id);
+// =======================================================================
+// INÍCIO DA CORREÇÃO PRINCIPAL
+// Declaramos o componente como uma constante que recebe uma função assíncrona.
+// Essa sintaxe é mais explícita para o compilador TypeScript.
+// =======================================================================
+const ProductDetailPage = async ({ params }: PageProps) => {
+  const produto = await getProduct(params.id);
 
   if (!produto) {
     notFound();
@@ -111,4 +114,6 @@ export default async function ProductDetailPage(props: PageProps) {
       </div>
     </main>
   );
-}
+};
+
+export default ProductDetailPage;
