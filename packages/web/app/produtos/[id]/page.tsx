@@ -14,6 +14,14 @@ interface Produto {
   especificacoes: string[];
 }
 
+// INÍCIO DA MODIFICAÇÃO: Interface para as props da página
+interface ProductDetailPageProps {
+  params: {
+    id: string;
+  };
+}
+// FIM DA MODIFICAÇÃO
+
 async function getProduct(id: string): Promise<Produto | null> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
   try {
@@ -36,7 +44,8 @@ async function getProduct(id: string): Promise<Produto | null> {
   }
 }
 
-export default async function ProductDetailPage({ params }: { params: { id: string } }) {
+// MODIFICAÇÃO: Usando a nova interface para tipar as props
+export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const produto = await getProduct(params.id);
 
   if (!produto) {
