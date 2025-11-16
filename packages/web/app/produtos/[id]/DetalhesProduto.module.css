@@ -110,7 +110,6 @@
 }
 
 .addToCartButton {
-    flex-grow: 1;
     background: var(--gradiente-hero);
     color: white;
     border: none;
@@ -160,12 +159,13 @@
 }
 
 .specsList li {
-    padding: 0.8rem 1rem;
-    background-color: var(--cor-neutra-fundo-secao);
+    padding: 0.8rem 0;
     border-bottom: 1px solid var(--cor-neutra-borda);
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
     color: var(--cor-neutra-cinza-claro);
+}
+
+.specsList li:last-child {
+  border-bottom: none;
 }
 
 /* Responsividade */

@@ -5,10 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Header.module.css';
 import { FaShoppingCart, FaUserCircle, FaBars, FaTimes } from 'react-icons/fa';
+import { useCart } from '@/app/context/CartContext';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const { getItemCount } = useCart();
+  const totalItems = getItemCount();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,12 +55,20 @@ const Header: React.FC = () => {
 
         {/* Action Icons */}
         <div className={styles.actionIcons}>
-          <Link href="/carrinho" aria-label="Carrinho de Compras">
+          
+          {/* Ícone do Carrinho */}
+          <Link href="/carrinho" aria-label="Carrinho de Compras" className={styles.iconLink}>
             <FaShoppingCart />
+            {totalItems > 0 && (
+              <span className={styles.cartBadge}>{totalItems}</span>
+            )}
           </Link>
-          <Link href="/minha-conta" aria-label="Minha Conta">
+          
+          {/* Ícone do Utilizador (ADICIONADA A CLASSE) */}
+          <Link href="/minha-conta" aria-label="Minha Conta" className={styles.iconLink}>
             <FaUserCircle />
           </Link>
+
           {/* Mobile Menu Button */}
           <button className={styles.mobileMenuButton} onClick={toggleMenu} aria-label="Abrir menu">
             {isMenuOpen ? <FaTimes /> : <FaBars />}
