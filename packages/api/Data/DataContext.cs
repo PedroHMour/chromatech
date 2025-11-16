@@ -17,6 +17,6 @@ namespace Chromatech.Api.Data
         public DbSet<Produto> Produtos { get; set; }
 
         // Você pode adicionar outras tabelas aqui no futuro
-        // public DbSet<Representante> Representantes { get; set; }
+        public DbSet<Representante> Representantes { get; set; }
     }
 }

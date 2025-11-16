@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import styles from './DetalhesProduto.module.css';
-import { FaShoppingCart, FaCheckCircle } from 'react-icons/fa';
+import { FaCheckCircle } from 'react-icons/fa'; // Removemos FaShoppingCart daqui
+import ProductActions from './ProductActions'; // <-- 1. IMPORTAÇÃO DO NOVO COMPONENTE
 
 interface Produto {
   id: number;
@@ -76,16 +77,14 @@ export default async function ProductDetailPage({ params }: Props) {
             <FaCheckCircle className={styles.stockIcon} /> Em estoque e pronto para envio em Manaus
           </div>
 
-          <div className={styles.actions}>
-            <div className={styles.quantitySelector}>
-              <button>-</button>
-              <input type="text" value="1" readOnly />
-              <button>+</button>
-            </div>
-            <button className={styles.addToCartButton}>
-              <FaShoppingCart /> Adicionar ao Carrinho
-            </button>
-          </div>
+          {/* 2. O HTML ESTÁTICO DOS BOTÕES FOI REMOVIDO DAQUI
+          */}
+
+          {/* 3. O NOVO COMPONENTE INTERATIVO É INSERIDO AQUI.
+               Passamos o objeto 'produto' como prop.
+          */}
+          <ProductActions produto={produto} />
+          
         </div>
       </div>
 

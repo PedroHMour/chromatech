@@ -1,5 +1,10 @@
-using Chromatech.Api.Data;
-using Chromatech.Api.Models; // Adicionada esta importação
+// =======================================================================
+// COPIA E COLA ESTE CÓDIGO INTEIRO
+// FICHEIRO: packages/api/Program.cs
+// =======================================================================
+
+using Chromatech.Api.Data; // <-- ESTA É A LINHA QUE FALTAVA (CS0246)
+using Chromatech.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,56 +67,89 @@ app.Run();
 
 
 // =======================================================================
-// INÍCIO DA NOVA CLASSE PARA POPULAR O BANCO DE DADOS
+// INÍCIO DA CLASSE PARA POPULAR O BANCO DE DADOS
+// =======================================================================
 public static class DataSeeder
 {
     public static void Seed(DataContext context)
     {
+        // --- SEED DE PRODUTOS ---
         // Verifica se a tabela de Produtos já tem algum dado.
-        // Se tiver, não faz nada.
-        if (context.Produtos.Any())
+        if (!context.Produtos.Any())
         {
-            return;
+            var produtos = new List<Produto>
+            {
+                new Produto
+                {
+                    Nome = "Chromatech Tupana A1",
+                    DescricaoCurta = "Impressora 3D multicolorida com a única tecnologia de mistura de cores do mundo.",
+                    Historia = "A Tupana A1 foi desenvolvida para atender às demandas da indústria 4.0 na Amazônia, oferecendo uma plataforma robusta e confiável para engenheiros e designers. Com um chassi de metal reforçado e componentes de alta qualidade, ela garante repetibilidade e precisão em todas as impressões.",
+                    Preco = 16900.00m,
+                    UrlImagemPrincipal = "/images/Tupana-A1.png",
+                    Especificacoes = new List<string> { "Volume de Impressão: 300x300x400mm", "Tecnologia: Mistura de Cores (CMYK)", "Nivelamento Automático", "Extrusora Direct Drive" }
+                }
+                // Adiciona os outros produtos (Kit de Bicos, Filamento) aqui se quiseres
+            };
+
+            context.Produtos.AddRange(produtos);
         }
 
-        // Cria uma lista de produtos de exemplo
-        var produtos = new List<Produto>
+        // --- SEED DE REPRESENTANTES ---
+        // Verifica se a tabela de Representantes já tem algum dado.
+        if (!context.Representantes.Any())
         {
-            new Produto
+            var representantes = new List<Representante>
             {
-                // O Id não precisa ser definido, o banco de dados gerará automaticamente
-                Nome = "Chromatech Titan Pro",
-                DescricaoCurta = "Impressora 3D de alta precisão para prototipagem industrial e peças finais.",
-                Historia = "A Titan Pro foi desenvolvida para atender às demandas da indústria 4.0 na Amazônia, oferecendo uma plataforma robusta e confiável para engenheiros e designers. Com um chassi de metal reforçado e componentes de alta qualidade, ela garante repetibilidade e precisão em todas as impressões.",
-                Preco = 7850.00m,
-                UrlImagemPrincipal = "/images/products/titan-pro-1.png",
-                Especificacoes = new List<string> { "Volume de Impressão: 300x300x400mm", "Velocidade Máx: 180mm/s", "Nivelamento Automático", "Extrusora Direct Drive" }
-            },
-            new Produto
-            {
-                Nome = "Kit de Bicos (Nozzles) de Aço",
-                DescricaoCurta = "Conjunto de 5 bicos de aço endurecido para materiais abrasivos.",
-                Historia = "Essenciais para quem trabalha com filamentos compostos como fibra de carbono ou madeira, estes bicos resistem ao desgaste, garantindo uma extrusão consistente e uma longa vida útil.",
-                Preco = 125.50m,
-                UrlImagemPrincipal = "/images/products/kit-nozzle.png",
-                Especificacoes = new List<string> { "Material: Aço Endurecido", "Tamanhos: 0.2, 0.4, 0.6, 0.8, 1.0mm", "Compatibilidade: Titan Pro, Ender 3, etc." }
-            },
-            new Produto
-            {
-                Nome = "Filamento PETG Premium (Branco)",
-                DescricaoCurta = "1kg de filamento PETG de alta qualidade, resistente e fácil de imprimir.",
-                Historia = "Nosso filamento PETG é produzido localmente com controle de qualidade rigoroso para garantir um diâmetro consistente de 1.75mm, resultando em impressões sem falhas, com ótima aderência entre camadas e alta resistência mecânica.",
-                Preco = 95.00m,
-                UrlImagemPrincipal = "/images/products/filamento-petg.png",
-                Especificacoes = new List<string> { "Material: PETG", "Diâmetro: 1.75mm (±0.02mm)", "Peso: 1kg", "Temperatura de Impressão: 230-250°C" }
-            }
-        };
+                new Representante
+                {
+                    Nome = "Gisele Lima",
+                    Cargo = "CEO",
+                    Biografia = "Liderando a Chromatech com visão estratégica e paixão por inovação.",
+                    UrlFoto = "/images/team/giselle.jpeg"
+                },
+                new Representante
+                {
+                    Nome = "Bruno",
+                    Cargo = "CFO",
+                    Biografia = "Gerenciando as finanças com precisão para o crescimento sustentável da empresa.",
+                    UrlFoto = "/images/team/placeholder-male-1.jpg"
+                },
+                new Representante
+                {
+                    Nome = "Tony",
+                    Cargo = "CTO",
+                    Biografia = "Líder técnico, impulsionando a pesquisa e desenvolvimento de novas tecnologias.",
+                    UrlFoto = "/images/team/placeholder-male-2.jpg"
+                },
+                new Representante
+                {
+                    Nome = "Dharlan",
+                    Cargo = "COO",
+                    Biografia = "Gerenciando as operações e garantindo a excelência da logística.",
+                    UrlFoto = "/images/team/dharlan.jpg"
+                },
+                new Representante
+                {
+                    Nome = "Pedro Henrique",
+                    Cargo = "Desenvolvedor de Software",
+                    Biografia = "Arquiteto e desenvolvedor da plataforma Chromatech, focado em performance e usabilidade.",
+                    UrlFoto = "/images/team/pedro.jpg"
+                },
+                new Representante
+                {
+                    Nome = "Andrey",
+                    Cargo = "Cadista",
+                    Biografia = "Especialista em modelagem 3D, transformando ideias complexas em protótipos precisos.",
+                    UrlFoto = "/images/team/andrey.jpg"
+                }
+            };
 
-        // Adiciona a lista de produtos ao contexto do banco de dados
-        context.Produtos.AddRange(produtos);
-        // Salva as mudanças no banco de dados
+            context.Representantes.AddRange(representantes);
+        }
+
+        // Salva TODAS as mudanças no banco de dados de uma só vez
         context.SaveChanges();
     }
 }
-// FIM DA NOVA CLASSE
+// FIM DA CLASSE
 // =======================================================================

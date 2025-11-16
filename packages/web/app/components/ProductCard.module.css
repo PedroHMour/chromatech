@@ -22,15 +22,15 @@
 }
 
 .imageWrapper {
-  background-color: #000;
+  background-color: #0d1a3c;
   padding: 1rem;
+  position: relative;
+  aspect-ratio: 1 / 1;
 }
 
 .productImage {
-  width: 100%;
-  height: auto;
   object-fit: contain; /* 'contain' para ver a impressora inteira */
-  aspect-ratio: 1 / 1;
+  /* REMOVE AS LINHAS width, height e aspect-ratio daqui */
   transition: transform 0.4s ease;
 }
 

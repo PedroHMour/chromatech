@@ -1,33 +1,49 @@
 import React from 'react';
-// import Image from 'next/image'; // REMOVIDO - não utilizado
 import styles from './SobreNos.module.css';
-import TeamCard from '@/app/components/TeamCard'; // MODIFICAÇÃO: Caminho corrigido para usar o alias '@'
-import { FaBullseye, FaEye } from 'react-icons/fa'; // MODIFICAÇÃO: 'FaHeart' removido
+import TeamCard from '@/app/components/TeamCard';
+import { FaBullseye, FaEye } from 'react-icons/fa';
 
-const teamMembers = [
-  {
-    name: 'Gisele Lima',
-    title: 'CEO',
-    imageUrl: '/images/team/placeholder-female.jpg',
-  },
-  {
-    name: 'Bruno',
-    title: 'CFO',
-    imageUrl: '/images/team/placeholder-male-1.jpg',
-  },
-  {
-    name: 'Tony',
-    title: 'CTO',
-    imageUrl: '/images/team/placeholder-male-2.jpg',
-  },
-  {
-    name: 'Darlan',
-    title: 'COO',
-    imageUrl: '/images/team/placeholder-male-3.jpg',
-  },
-];
+// =======================================================================
+// INÍCIO DA MODIFICAÇÃO: BUSCAR DADOS DA API
+// =======================================================================
 
-const AboutUsPage = () => {
+// 1. Define a interface para os dados que virão da API
+// (Nota: a API .NET converte PascalCase para camelCase, ex: UrlFoto -> urlFoto)
+interface Representante {
+  id: number;
+  nome: string;
+  cargo: string;
+  biografia: string;
+  urlFoto: string;
+}
+
+// 2. Remove o array estático 'teamMembers'
+// const teamMembers = [ ... ]; // <-- ISTO FOI REMOVIDO
+
+// 3. Cria a função para buscar os dados da API
+async function getTeam(): Promise<Representante[]> {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
+  try {
+    // Busca no novo endpoint /api/representantes
+    const res = await fetch(`${apiUrl}/api/representantes`, { cache: 'no-store' });
+    if (!res.ok) {
+      throw new Error(`Falha ao buscar dados da API: Status ${res.status}`);
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Erro detalhado ao buscar equipa:", error);
+    return [];
+  }
+}
+
+// 4. Transforma o componente em 'async' e busca os dados
+const AboutUsPage = async () => {
+  const teamMembers = await getTeam(); // Busca os dados reais da API
+
+// =======================================================================
+// FIM DA MODIFICAÇÃO
+// =======================================================================
+
   return (
     <main className={styles.main}>
       {/* Seção Hero */}
@@ -42,7 +58,7 @@ const AboutUsPage = () => {
         </div>
       </section>
 
-      {/* Seção de Missão, Visão e Valores */}
+      {/* Seção de Missão, Visão e Valores (sem alterações) */}
       <section className={styles.missionSection}>
         <div className={styles.missionGrid}>
           <div className={styles.missionCard}>
@@ -58,7 +74,7 @@ const AboutUsPage = () => {
         </div>
       </section>
       
-      {/* Seção de Valores */}
+      {/* Seção de Valores (sem alterações) */}
       <section className={styles.valuesSection}>
          <h2 className={styles.sectionTitle}>Nossos Valores</h2>
          <div className={styles.valuesGrid}>
@@ -78,8 +94,14 @@ const AboutUsPage = () => {
             Conheça as mentes por trás da inovação na Chromatech.
           </p>
           <div className={styles.teamGrid}>
-            {teamMembers.map((member, index) => (
-              <TeamCard key={index} name={member.name} title={member.title} imageUrl={member.imageUrl} />
+            {/* 5. O loop agora usa os dados da API (note a mudança para member.id, member.nome, etc.) */}
+            {teamMembers.map((member) => (
+              <TeamCard 
+                key={member.id} 
+                name={member.nome} 
+                title={member.cargo} 
+                imageUrl={member.urlFoto} 
+              />
             ))}
           </div>
         </div>

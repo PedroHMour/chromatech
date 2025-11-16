@@ -30,8 +30,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ produto }) => {
           <Image
             src={produto.urlImagemPrincipal}
             alt={`Impressora 3D ${produto.nome}`}
-            width={350}
-            height={350}
+            
+            /* SUBSTITUI width={350} E height={350} POR ISTO: */
+            fill
+            sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 33vw"
+            /* FIM DA SUBSTITUIÇÃO */
             className={styles.productImage}
           />
         </div>

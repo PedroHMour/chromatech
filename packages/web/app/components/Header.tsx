@@ -43,7 +43,8 @@ const Header: React.FC = () => {
 
         {/* Desktop Navigation */}
         <ul className={styles.navLinks}>
-          <li><Link href="/produtos">Impressoras 3D</Link></li>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/produtos">Produtos</Link></li>
           <li><Link href="/sobre-nos">Sobre Nós</Link></li>
           <li><Link href="/aplicacoes">Aplicações</Link></li>
           <li><Link href="/suporte">Suporte</Link></li>
@@ -68,7 +69,8 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <div className={styles.mobileMenu}>
           <ul className={styles.mobileNavLinks}>
-            <li><Link href="/produtos" onClick={closeMenu}>Impressoras 3D</Link></li>
+            <li><Link href="/" onClick={closeMenu}>Home</Link></li>
+            <li><Link href="/produtos" onClick={closeMenu}>Produtos</Link></li>
             <li><Link href="/sobre-nos" onClick={closeMenu}>Sobre Nós</Link></li>
             <li><Link href="/aplicacoes" onClick={closeMenu}>Aplicações</Link></li>
             <li><Link href="/suporte" onClick={closeMenu}>Suporte</Link></li>

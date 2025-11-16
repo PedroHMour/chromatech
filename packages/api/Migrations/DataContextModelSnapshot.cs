@@ -49,6 +49,33 @@ namespace Chromatech.Api.Migrations
 
                     b.ToTable("Produtos");
                 });
+
+            modelBuilder.Entity("Chromatech.Api.Models.Representante", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Biografia")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cargo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UrlFoto")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Representantes");
+                });
 #pragma warning restore 612, 618
         }
     }
