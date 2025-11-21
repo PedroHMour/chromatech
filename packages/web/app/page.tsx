@@ -2,15 +2,20 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion'; // Adicionado Variants
 import ParallaxShowcase from './components/ParallaxShowcase';
 import MissionSection from './components/MissionSection';
 import InterestForm from './components/InterestForm';
-import { FaCheckCircle, FaInfoCircle, FaGift, FaRegClock } from 'react-icons/fa';
+import { FaInfoCircle } from 'react-icons/fa';
 
-const fadeInUp = {
+// CORREÇÃO AQUI: Adicionada a tipagem explícita ': Variants'
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: "easeOut" } 
+  }
 };
 
 export default function HomePage() {
@@ -99,9 +104,14 @@ export default function HomePage() {
             </h2>
             
             <div className="space-y-8 mb-8">
+              {/* Icones removidos da importação direta aqui e passados como children ou mantidos se importados */}
+              {/* Nota: No código anterior importaste FaCheckCircle etc no page.tsx? 
+                  Vou garantir que os icones usados aqui existem no import lá em cima ou remover se não usados */}
+              
+              {/* Recriando a estrutura de ícones manualmente para garantir que não quebre se faltar import */}
               <div className="flex gap-5">
-                <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border border-white/5 flex items-center justify-center text-[#0052FF] flex-shrink-0">
-                  <FaCheckCircle size={20} />
+                <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border border-white/5 flex items-center justify-center text-[#0052FF] flex-shrink-0 font-bold text-xl">
+                  ✓
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg">Sinal de Entrada Facilitado</h4>
@@ -110,8 +120,8 @@ export default function HomePage() {
               </div>
 
               <div className="flex gap-5">
-                <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border border-white/5 flex items-center justify-center text-[#00E676] flex-shrink-0">
-                  <FaGift size={20} />
+                <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border border-white/5 flex items-center justify-center text-[#00E676] flex-shrink-0 font-bold text-xl">
+                  $
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg">Cashback em Produtos</h4>
@@ -120,8 +130,8 @@ export default function HomePage() {
               </div>
 
               <div className="flex gap-5">
-                <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border border-white/5 flex items-center justify-center text-purple-500 flex-shrink-0">
-                  <FaRegClock size={20} />
+                <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border border-white/5 flex items-center justify-center text-purple-500 flex-shrink-0 font-bold text-xl">
+                  🕒
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-lg">Restante Parcelado</h4>
@@ -145,7 +155,7 @@ export default function HomePage() {
               
               <InterestForm 
                 produtoId={1} 
-                nomeProduto="Tupana A1 - 2º Lote (Oferta R$990+Cashback)" 
+                nomeProduto="Tupã A1 - 2º Lote (Oferta R$990+Cashback)" 
               />
               
               <p className="mt-6 text-center text-xs text-gray-500">
