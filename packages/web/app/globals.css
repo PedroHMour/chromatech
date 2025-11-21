@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --cor-primaria-azul: #0052FF;
-  --cor-secundaria-verde: #00E676;
-  --cor-fundo-dark: #050505;
+  /* Paleta Deep Tech */
+  --background-base: #0a0a0a; 
+  --text-primary: #EDEDED;
+  --primaria-azul: #0052FF;
+  --secundaria-verde: #00E676;
 }
 
 html {
@@ -13,30 +15,40 @@ html {
 }
 
 body {
-  /* Fundo Profundo com "Glow" central */
-  background-color: var(--cor-fundo-dark);
+  background-color: var(--background-base);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* Previne scroll lateral */
+}
+
+/* Grid Pattern Estático (Menos consumo de GPU) */
+.bg-grid-pattern {
+  background-size: 40px 40px;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(0, 82, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 85% 30%, rgba(0, 230, 118, 0.08) 0%, transparent 40%);
-  background-attachment: fixed; /* O fundo fica fixo enquanto rolas */
-  color: #E5E5EA;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden; /* Previne scroll lateral indesejado */
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  /* Removi o mask-image complexo que causava repaints */
+  opacity: 0.5;
 }
 
-/* Utilitário para Efeito de Vidro (Glassmorphism) */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+/* Utilitários de Performance */
+.gpu-accelerate {
+  transform: translateZ(0);
+  will-change: transform;
 }
 
-/* Gradiente de Texto (Dourado/Tech) */
-.text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 0%, #00E676 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

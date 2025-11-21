@@ -4,11 +4,15 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap', 
+  variable: '--font-inter'
+});
 
 export const metadata: Metadata = {
-  title: "Chromatech - Soluções em Impressão 3D",
-  description: "Tecnologia de ponta em Manaus para a indústria 4.0.",
+  title: "Chromatech - Pré-venda Tupana A1",
+  description: "Garanta acesso antecipado à impressora 3D multicolorida que revoluciona a Amazônia.",
 };
 
 export default function RootLayout({
@@ -17,10 +21,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={inter.className}>
+    <html lang="pt-BR" className={inter.variable}>
+      <body className="bg-[#0a0a0a] text-gray-100 min-h-screen flex flex-col antialiased">
         <Header />
-        <main>{children}</main>
+        <main className="flex-grow w-full relative">
+          {/* Background estático para performance */}
+          <div className="fixed inset-0 bg-grid-pattern pointer-events-none z-0" />
+          <div className="relative z-10">
+            {children}
+          </div>
+        </main>
         <Footer />
       </body>
     </html>
