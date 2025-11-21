@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
           <Link href="/" className={styles.logoLink}>
             <Image
               src="/images/logo.png"
-              alt="Logo da Chromatech"
+              alt="Chromatech"
               width={180}
               height={50}
               priority
@@ -20,15 +20,9 @@ const Footer: React.FC = () => {
           </Link>
           <p className={styles.tagline}>Dando vida às suas ideias com tecnologia de ponta.</p>
           <div className={styles.socialIcons}>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <FaFacebook />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FaInstagram />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <FaLinkedin />
-            </a>
+            <a href="#" aria-label="Facebook"><FaFacebook /></a>
+            <a href="#" aria-label="Instagram"><FaInstagram /></a>
+            <a href="#" aria-label="LinkedIn"><FaLinkedin /></a>
           </div>
         </div>
 
@@ -36,28 +30,27 @@ const Footer: React.FC = () => {
           <div className={styles.linkGroup}>
             <h4 className={styles.linkTitle}>Navegação</h4>
             <ul>
-              <li><Link href="/produtos">Impressoras 3D</Link></li>
+              <li><Link href="/produtos">Soluções</Link></li>
               <li><Link href="/sobre-nos">Sobre Nós</Link></li>
               <li><Link href="/aplicacoes">Aplicações</Link></li>
-              <li><Link href="/suporte">Suporte</Link></li>
             </ul>
           </div>
           <div className={styles.linkGroup}>
             <h4 className={styles.linkTitle}>Legal</h4>
             <ul>
-              <li><Link href="/termos">Termos de Serviço</Link></li>
-              <li><Link href="/privacidade">Política de Privacidade</Link></li>
+              <li><Link href="#">Termos de Serviço</Link></li>
+              <li><Link href="#">Política de Privacidade</Link></li>
             </ul>
           </div>
         </div>
 
         <div className={styles.newsletterSection}>
-          <h4 className={styles.linkTitle}>Fique por Dentro</h4>
-          <p>Receba as últimas novidades e promoções exclusivas da Chromatech.</p>
-          <form className={styles.newsletterForm}>
-            <input type="email" placeholder="Seu melhor e-mail" required />
-            <button type="submit">Inscrever-se</button>
-          </form>
+          <h4 className={styles.linkTitle}>Contacto</h4>
+          <p>Tem alguma dúvida? Fale conosco.</p>
+          <div style={{ color: 'var(--cor-neutra-cinza-claro)', fontSize: '0.9rem' }}>
+            <p>Manaus - AM</p>
+            <p>contato@chromatech.com.br</p>
+          </div>
         </div>
       </div>
       <div className={styles.footerBottom}>

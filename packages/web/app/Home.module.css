@@ -10,6 +10,8 @@
   justify-content: center;
   text-align: center;
   padding: 6rem 2rem;
+  /* Fundo sutil para dar profundidade sem vídeo */
+  background: radial-gradient(circle at center, #1c1c1e 0%, #000000 100%);
 }
 
 .heroContent {
@@ -29,12 +31,6 @@
   text-fill-color: transparent;
 }
 
-.heroTitle .highlight {
-    -webkit-text-fill-color: white; /* Para o texto não gradiente */
-    text-fill-color: white;
-}
-
-
 .heroSubtitle {
   font-size: 1.25rem;
   color: var(--cor-neutra-cinza-claro);
@@ -51,18 +47,18 @@
 
 .heroButton {
   padding: 14px 32px;
-  border-radius: 50px; /* Bordas totalmente arredondadas */
+  border-radius: 50px;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 2px solid transparent;
+  text-decoration: none;
 }
 
 .heroButton:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
 }
 
 .primaryButton {
@@ -77,51 +73,20 @@
 }
 
 .secondaryButton:hover {
-    background-color: white;
-    color: var(--cor-neutra-grafite);
+  background-color: white;
+  color: var(--cor-neutra-grafite);
 }
 
-
-/* Products Section */
-.productsSection {
-  padding: 5rem 2rem;
-  background-color: var(--cor-neutra-fundo-secao);
-  border-top: 1px solid var(--cor-neutra-borda);
-  border-bottom: 1px solid var(--cor-neutra-borda);
-}
-
-.sectionTitle {
-  text-align: center;
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 4rem;
-  color: #FFFFFF;
-}
-
-.productsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-    .heroTitle {
-        font-size: 3rem;
-    }
-
-    .heroSubtitle {
-        font-size: 1.1rem;
-    }
-
-    .heroActions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .heroButton {
-        width: 80%;
-    }
+  .heroTitle {
+    font-size: 3rem;
+  }
+  .heroActions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .heroButton {
+    width: 100%;
+    max-width: 300px;
+  }
 }

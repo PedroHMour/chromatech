@@ -22,15 +22,14 @@
 }
 
 .imageWrapper {
-  background-color: #0d1a3c;
+  background-color: #0d1a3c; /* Azul escuro */
   padding: 1rem;
   position: relative;
   aspect-ratio: 1 / 1;
 }
 
 .productImage {
-  object-fit: contain; /* 'contain' para ver a impressora inteira */
-  /* REMOVE AS LINHAS width, height e aspect-ratio daqui */
+  object-fit: contain;
   transition: transform 0.4s ease;
 }
 
@@ -64,7 +63,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto; /* Empurra o rodapé do card para baixo */
+  margin-top: auto;
 }
 
 .price {

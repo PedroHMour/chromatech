@@ -1,9 +1,0 @@
-# Ignora as pastas de compilação do .NET
-bin/
-obj/
-
-# Ignora arquivos do Visual Studio e de configuração local
-.vs/
-.vscode/
-*.user
-*.sln.DotSettings.user
